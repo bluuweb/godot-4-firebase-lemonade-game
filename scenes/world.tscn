@@ -3,7 +3,12 @@
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_d3eq2"]
 [ext_resource type="PackedScene" uid="uid://vk2icjwx663w" path="res://scenes/ui.tscn" id="2_ftrd2"]
 [ext_resource type="PackedScene" uid="uid://cbv4uimyvx7k" path="res://scenes/cart.tscn" id="2_lgl30"]
-[ext_resource type="PackedScene" uid="uid://drmawhbl7ukue" path="res://scenes/person.tscn" id="3_3djqq"]
+
+[sub_resource type="Curve2D" id="Curve2D_k744r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -44, 172, 0, 0, 0, 0, 722, 171)
+}
+point_count = 2
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_d3eq2")
@@ -13,9 +18,9 @@ script = ExtResource("1_d3eq2")
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="Cart" parent="." instance=ExtResource("2_lgl30")]
-position = Vector2(286, 149)
+position = Vector2(320, 172)
 
-[node name="Person" parent="." instance=ExtResource("3_3djqq")]
-position = Vector2(520, 18)
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_k744r")
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

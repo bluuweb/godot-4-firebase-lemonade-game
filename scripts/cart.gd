@@ -1,10 +1,8 @@
 class_name Cart
-extends Node2D
+extends Area2D
 
-func _ready() -> void:
-	#sell_lemonade()
-	pass
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is Person:
+func _on_area_entered(area: Area2D) -> void:
+	if area is Person:
+		await get_tree().create_timer(4).timeout
 		Global.sell_lemonade()
+		area.timer.start()
