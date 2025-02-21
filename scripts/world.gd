@@ -7,16 +7,21 @@ const PERSON = preload("res://scenes/person.tscn")
 
 @onready var paths_array: Array[Path2D] = [path_2d, path_2d_2]
 @onready var pathSelected: Path2D = path_2d
+@onready var ui: CanvasLayer = $UI
 
 var max_peoples := 10
 
 func _ready() -> void:
+	#game_start()
+	ui.connect("game_start", game_start)
+	pass
+
+func game_start():
 	generate_person()
 
 func generate_person():
 	var random_time = randf_range(3, 3)
 	
-	print("🔴", randi_range(0, paths_array.size() - 1))
 	pathSelected = paths_array[randi_range(0, paths_array.size() - 1)]
 	
 	await get_tree().create_timer(random_time).timeout

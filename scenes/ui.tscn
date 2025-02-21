@@ -3,25 +3,19 @@
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_8ocg0"]
 [ext_resource type="Texture2D" uid="uid://c0i8io35dkwx5" path="res://art/UI/Pointers/01.png" id="2_wq7m6"]
 [ext_resource type="Texture2D" uid="uid://b5t72prdmdmjl" path="res://art/UI/Ribbons/Ribbon_Yellow_3Slides.png" id="3_mxlvv"]
+[ext_resource type="StyleBox" uid="uid://cuyjupcba27r1" path="res://ui/button_start.tres" id="4_gb6lh"]
 [ext_resource type="Texture2D" uid="uid://btn8oqkatgbjw" path="res://art/UI/Buttons/Button_Blue_3Slides.png" id="4_vtujn"]
-[ext_resource type="Texture2D" uid="uid://3u4situpq44m" path="res://art/UI/Buttons/Button_Blue_3Slides_Pressed.png" id="5_hl3aa"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_rnpve"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_vtujn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_hl3aa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_vtujn")
-}],
-"loop": false,
-"name": &"click",
-"speed": 5.0
-}]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fhebg"]
+texture = ExtResource("4_vtujn")
+texture_margin_left = 13.0
+texture_margin_top = 2.0
+texture_margin_right = 13.0
+texture_margin_bottom = 6.0
+expand_margin_left = 17.0
+expand_margin_top = 3.0
+expand_margin_right = 17.0
+expand_margin_bottom = 17.0
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_8ocg0")
@@ -59,26 +53,16 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "$ 0"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="."]
-offset_left = 240.0
-offset_top = 152.0
-offset_right = 400.0
-offset_bottom = 184.0
-
-[node name="AnimateButtonStart" type="AnimatedSprite2D" parent="Button"]
-position = Vector2(80, 23)
-sprite_frames = SubResource("SpriteFrames_rnpve")
-animation = &"click"
-frame = 2
-frame_progress = 1.0
-
-[node name="Label" type="Label" parent="Button"]
-offset_left = 12.0
-offset_top = 4.0
-offset_right = 148.0
-offset_bottom = 27.0
+[node name="ButtonStart" type="Button" parent="."]
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 383.0
+offset_bottom = 164.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 26
+theme_override_styles/hover = ExtResource("4_gb6lh")
+theme_override_styles/pressed = ExtResource("4_gb6lh")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fhebg")
 text = "Comenzar"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ButtonStart" to="." method="_on_button_pressed"]

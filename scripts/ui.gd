@@ -4,7 +4,9 @@ extends CanvasLayer
 @onready var label_stock: Label = $VBoxContainer/LabelStock
 @onready var label_profit: Label = $LabelProfit
 @export var cursor_image: Texture2D
-@onready var animate_button_start: AnimatedSprite2D = $Button/AnimateButtonStart
+@onready var button_start: Button = $ButtonStart
+
+signal game_start
 
 func _ready() -> void:
 	# Verifica que la imagen del cursor esté cargada
@@ -20,4 +22,10 @@ func _process(delta: float) -> void:
 	label_profit.text = "$ " + str(Global.profit)
 
 func _on_button_pressed() -> void:
-	animate_button_start.play("click")
+	# Aquí llamo a World
+	# $"..".game_start()
+	game_start.emit()
+
+	#await get_tree().create_timer(0.5).timeout
+	# Ocultar el botón animate_button_start
+	button_start.hide()

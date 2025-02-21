@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cuyjupcba27r1"]
+
+[ext_resource type="Texture2D" uid="uid://3u4situpq44m" path="res://art/UI/Buttons/Button_Blue_3Slides_Pressed.png" id="1_i6nnn"]
+
+[resource]
+texture = ExtResource("1_i6nnn")
+texture_margin_left = 13.0
+texture_margin_top = 2.0
+texture_margin_right = 13.0
+texture_margin_bottom = 6.0
+expand_margin_left = 17.0
+expand_margin_top = 3.0
+expand_margin_right = 17.0
+expand_margin_bottom = 17.0
