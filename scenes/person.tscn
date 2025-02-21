@@ -298,7 +298,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tiywq"]
-size = Vector2(32, 8)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ypw0"]
 size = Vector2(8, 8)
@@ -313,7 +313,7 @@ animation = &"walk_red_archer"
 autoplay = "walk_green_gobling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, 20)
+position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_tiywq")
 
 [node name="Timer" type="Timer" parent="."]

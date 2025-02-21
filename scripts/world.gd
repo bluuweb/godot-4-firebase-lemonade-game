@@ -19,16 +19,22 @@ func _ready() -> void:
 func game_start():
 	generate_person()
 
+# Para testear
+var path1 := true
+
 func generate_person():
 	var random_time = randf_range(3, 3)
 	
-	pathSelected = paths_array[randi_range(0, paths_array.size() - 1)]
+	#pathSelected = paths_array[randi_range(0, paths_array.size() - 1)]
+	
+	pathSelected = paths_array[0 if path1 == true else 1]
+	path1 = !path1
 	
 	await get_tree().create_timer(random_time).timeout
 	
 	# Contar cuántas personas existen en el grupo
 	var people_count = get_tree().get_nodes_in_group("people").size()
-	print("Número de personas: ", people_count)
+
 	if people_count < max_peoples:
 		# Crear una nueva persona
 		var person = PERSON.instantiate()

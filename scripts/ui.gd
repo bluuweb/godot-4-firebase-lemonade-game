@@ -9,6 +9,7 @@ extends CanvasLayer
 signal game_start
 
 func _ready() -> void:
+	Global.connect("sell", sell)
 	# Verifica que la imagen del cursor esté cargada
 	if cursor_image:
 		# Configura el cursor personalizado
@@ -16,10 +17,11 @@ func _ready() -> void:
 	else:
 		print("La imagen del cursor no está cargada.")
 
-func _process(delta: float) -> void:
+func sell():
 	label_price.text = "Price: $" + str(Global.price)
 	label_stock.text = "Stock: " + str(Global.stock)
 	label_profit.text = "$ " + str(Global.profit)
+	$AnimatedGold.play("sell")
 
 func _on_button_pressed() -> void:
 	# Aquí llamo a World

@@ -5,10 +5,13 @@ extends Area2D
 @onready var timer: Timer = $Timer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+
 var timer_seconds = 0.1
 var flagBackPerson := false
 var flagFrontPerson := false
 var flagCart := false
+
+var is_in_cart := false
 
 # Lista de diseños disponibles
 var designs = ["green_gobling", "blue_knight", "red_archer"] # Agrega tantos diseños como necesites
@@ -33,26 +36,25 @@ func start_walk(area: Area2D):
 	area.timer.start()
 	area.animated_sprite.play("walk_" + area.selected_design)
 
-# Detectar a otra persona o el carrito de ventas y parar
+func wait_and_walk():
+	is_in_cart = true
+	await get_tree().create_timer(4).timeout
+	start_walk(self)
+	is_in_cart = false
+
+# Detectar el carrito de ventas y parar
 func _on_area_entered(area: Area2D) -> void:
-	if area is Person:
-		stop_walk(self)
-		
-	elif area is Cart:
-		stop_walk(self)
-		
-func _on_area_exited(area: Area2D) -> void:
-	if area is Person:
-		start_walk(self)
+	if area is Cart:
+		stop_walk(self) # Me detengo
 
 # Detectó una persona atrás
 func _on_area_2d_back_area_entered(area: Area2D) -> void:
 	if area is Person:
-		stop_walk(area)
+		stop_walk(area) # Que se detenga el de atrás
 
 func _on_area_2d_back_area_exited(area: Area2D) -> void:
-	if area is Person:
-		start_walk(area)
+	if area is Person and area.is_in_cart == false:
+		start_walk(area) # Aquí hago que camine el de atrás
 		
 # Manejar el avance del camino
 func _on_timer_timeout() -> void:
@@ -60,3 +62,4 @@ func _on_timer_timeout() -> void:
 	if path_follow_2d.progress_ratio >= 1:
 		path_follow_2d.queue_free()
 		queue_free()
+		

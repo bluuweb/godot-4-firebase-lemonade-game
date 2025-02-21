@@ -3,6 +3,6 @@ extends Area2D
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Person:
-		await get_tree().create_timer(4).timeout
-		Global.sell_lemonade()
-		area.start_walk(area)
+		#Global.sell_lemonade()
+		Global.sell.emit()
+		area.wait_and_walk()
