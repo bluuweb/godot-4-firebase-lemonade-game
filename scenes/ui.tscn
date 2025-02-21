@@ -1,18 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://vk2icjwx663w"]
+[gd_scene load_steps=7 format=3 uid="uid://vk2icjwx663w"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_8ocg0"]
+[ext_resource type="Texture2D" uid="uid://c0i8io35dkwx5" path="res://art/UI/Pointers/01.png" id="2_wq7m6"]
+[ext_resource type="Texture2D" uid="uid://b5t72prdmdmjl" path="res://art/UI/Ribbons/Ribbon_Yellow_3Slides.png" id="3_mxlvv"]
+[ext_resource type="Texture2D" uid="uid://btn8oqkatgbjw" path="res://art/UI/Buttons/Button_Blue_3Slides.png" id="4_vtujn"]
+[ext_resource type="Texture2D" uid="uid://3u4situpq44m" path="res://art/UI/Buttons/Button_Blue_3Slides_Pressed.png" id="5_hl3aa"]
 
-[node name="UI" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="SpriteFrames" id="SpriteFrames_rnpve"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vtujn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hl3aa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vtujn")
+}],
+"loop": false,
+"name": &"click",
+"speed": 5.0
+}]
+
+[node name="UI" type="CanvasLayer"]
 script = ExtResource("1_8ocg0")
+cursor_image = ExtResource("2_wq7m6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 286.0
@@ -26,6 +41,44 @@ text = "Price: $ 1"
 layout_mode = 2
 text = "Stock: $ 100"
 
-[node name="LabelProfit" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Profit: $ 0"
+[node name="RibbonYellow3Slides" type="Sprite2D" parent="."]
+position = Vector2(317, 48)
+texture = ExtResource("3_mxlvv")
+
+[node name="LabelProfit" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 27.0
+offset_right = 48.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "$ 0"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 240.0
+offset_top = 152.0
+offset_right = 400.0
+offset_bottom = 184.0
+
+[node name="AnimateButtonStart" type="AnimatedSprite2D" parent="Button"]
+position = Vector2(80, 23)
+sprite_frames = SubResource("SpriteFrames_rnpve")
+animation = &"click"
+frame = 2
+frame_progress = 1.0
+
+[node name="Label" type="Label" parent="Button"]
+offset_left = 12.0
+offset_top = 4.0
+offset_right = 148.0
+offset_bottom = 27.0
+text = "Comenzar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

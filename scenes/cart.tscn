@@ -1,22 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbv4uimyvx7k"]
+[gd_scene load_steps=6 format=3 uid="uid://cbv4uimyvx7k"]
 
 [ext_resource type="Script" path="res://scripts/cart.gd" id="1_f2j5h"]
+[ext_resource type="Texture2D" uid="uid://ey7ki7lxbjcj" path="res://art/Factions/Knights/Buildings/House/House_Yellow.png" id="2_cfo24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgra8"]
+atlas = ExtResource("2_cfo24")
+region = Rect2(0, 0, 128, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_owqlk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgra8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cp1eu"]
-size = Vector2(40, 64)
+size = Vector2(17, 104)
 
 [node name="Cart" type="Area2D"]
 script = ExtResource("1_f2j5h")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -24.0
-offset_top = -40.0
-offset_right = 24.0
-offset_bottom = 40.0
-color = Color(1, 1, 0.168627, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4.76837e-07)
+sprite_frames = SubResource("SpriteFrames_owqlk")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-12, 0)
+position = Vector2(7.5, 60)
 shape = SubResource("RectangleShape2D_cp1eu")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
