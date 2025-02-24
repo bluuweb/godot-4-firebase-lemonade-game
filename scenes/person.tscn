@@ -327,6 +327,14 @@ position = Vector2(-20, 20)
 shape = SubResource("RectangleShape2D_5ypw0")
 debug_color = Color(0.942025, 0.0568368, 0.580898, 0.42)
 
+[node name="Emoji" type="Label" parent="."]
+offset_top = -48.0
+offset_right = 41.0
+offset_bottom = -6.0
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 30
+text = "😍"
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

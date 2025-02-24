@@ -1,8 +1,8 @@
 extends Node
 
-var price := 1
+var price := 3
 var profit := 0
-var stock := 100
+var stock := 0
 
 var http_request_get = HTTPRequest.new()
 var http_request_put = HTTPRequest.new()
@@ -11,6 +11,7 @@ const url = "https://juego-v1-a09be-default-rtdb.firebaseio.com/score.json"
 const headers = ["Content-Type: application/json"]
 
 signal sell
+signal update_stock_signal
 
 func _ready():
 	
@@ -29,6 +30,10 @@ func sell_lemonade():
 		stock -= 1
 		profit += price
 		# send_data()
+func update_stock(value: int):
+	print("update_stock global", value)
+	stock += value
+	update_stock_signal.emit()
 		
 func read_data():
 	http_request_get.request(url, headers, HTTPClient.METHOD_GET)

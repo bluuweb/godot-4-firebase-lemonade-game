@@ -23,13 +23,14 @@ func game_start():
 var path1 := true
 
 func generate_person():
-	var random_time = randf_range(3, 3)
+	var random_time = randf_range(1, 3)
 	
 	#pathSelected = paths_array[randi_range(0, paths_array.size() - 1)]
 	
-	pathSelected = paths_array[0 if path1 == true else 1]
-	path1 = !path1
+	#pathSelected = paths_array[0 if path1 == true else 1]
+	#path1 = !path1
 	
+	pathSelected = paths_array[0]
 	await get_tree().create_timer(random_time).timeout
 	
 	# Contar cuántas personas existen en el grupo

@@ -78,7 +78,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAA
 tile_set = SubResource("TileSet_cjcqd")
 
 [node name="TilePath" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAMAAQAAAAAAAAABAAMAAQABAAAAAAACAAMAAQABAAAAAAADAAMAAQABAAAAAAAEAAMAAQABAAAAAAAFAAMAAQABAAAAAAAGAAMAAQABAAAAAAAHAAMAAQABAAAAAAAIAAMAAQABAAAAAAAJAAMAAQACAAAAAAAAAAQAAQAAAAEAAAABAAQAAQABAAEAAAACAAQAAQABAAEAAAADAAQAAQABAAEAAAAEAAQAAQABAAEAAAAFAAQAAQABAAEAAAAGAAQAAQABAAEAAAAHAAQAAQABAAEAAAAIAAQAAQABAAEAAAAJAAQAAQACAAEAAAAAAAUAAQAAAAEAAAABAAUAAQABAAEAAAACAAUAAQABAAEAAAADAAUAAQABAAEAAAAEAAUAAQABAAEAAAAFAAUAAQABAAEAAAAGAAUAAQABAAEAAAAHAAUAAQABAAEAAAAIAAUAAQABAAEAAAAJAAUAAQACAAEAAAA=")
+tile_map_data = PackedByteArray("AAABAAQAAQABAAAAAAACAAQAAQABAAAAAAADAAQAAQABAAAAAAAEAAQAAQABAAAAAAAFAAQAAQABAAAAAAAGAAQAAQABAAAAAAAHAAQAAQABAAAAAAAIAAQAAQABAAAAAAAJAAQAAQABAAAAAAAAAAUAAQABAAEAAAABAAUAAQABAAEAAAACAAUAAQABAAEAAAADAAUAAQABAAEAAAAEAAUAAQABAAEAAAAFAAUAAQABAAEAAAAGAAUAAQABAAEAAAAHAAUAAQABAAEAAAAIAAUAAQABAAEAAAAJAAUAAQABAAEAAAAAAAQAAQABAAAAAAA=")
 tile_set = SubResource("TileSet_j5v02")
 
 [node name="UI" parent="." instance=ExtResource("2_ftrd2")]
@@ -86,20 +86,22 @@ tile_set = SubResource("TileSet_j5v02")
 [node name="MapLayout" type="Node" parent="."]
 
 [node name="Tree1" parent="MapLayout" instance=ExtResource("5_gaboh")]
-position = Vector2(96, 144)
+position = Vector2(96, 197)
 
 [node name="Tree2" parent="MapLayout" instance=ExtResource("5_gaboh")]
-position = Vector2(544, 152)
+position = Vector2(544, 197)
 
 [node name="Cart" parent="." instance=ExtResource("2_lgl30")]
-position = Vector2(320, 160)
+position = Vector2(320, 218)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="Path2D" type="Path2D" parent="."]
+position = Vector2(0, 74)
 curve = SubResource("Curve2D_nskj3")
 
 [node name="Path2D2" type="Path2D" parent="."]
+visible = false
 curve = SubResource("Curve2D_vw6hd")
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
