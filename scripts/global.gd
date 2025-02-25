@@ -3,6 +3,8 @@ extends Node
 var price := 3
 var profit := 0
 var stock := 0
+var time_game := 60
+var bonus_time := 10
 
 var http_request_get = HTTPRequest.new()
 var http_request_put = HTTPRequest.new()
@@ -29,6 +31,7 @@ func sell_lemonade():
 	if(stock > 0):
 		stock -= 1
 		profit += price
+		time_game += bonus_time
 		# send_data()
 func update_stock(value: int):
 	print("update_stock global", value)

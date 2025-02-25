@@ -11,6 +11,8 @@ var flagBackPerson := false
 var flagFrontPerson := false
 var flagCart := false
 
+var flagPersonDied := false
+
 var is_in_cart := false
 
 # Lista de diseños disponibles
@@ -25,7 +27,8 @@ var max_money := 5.0
 const REACTION = {
 	"WAIT": "⌛",
 	"NORMAL": "😄",
-	"NO_MONEY": "😵"
+	"NO_MONEY": "😵",
+	"DIED": "💀"
 }
 
 func _ready() -> void:
@@ -44,36 +47,36 @@ func _ready() -> void:
 	money = randf_range(min_money, max_money)
 
 func stop_walk(area: Area2D):
+	if flagPersonDied: return
 	area.timer.stop()
 	area.animated_sprite.play("idle_" + area.selected_design) # Usa el diseño seleccionado
 
 func start_walk(area: Area2D):
+	if flagPersonDied: return
 	area.timer.start()
 	area.animated_sprite.play("walk_" + area.selected_design)
-
-func wait_and_walk(reason: String, time = 0):
-	emoji.text = REACTION.WAIT
+	
+func emoji_show(reaction: String):
+	emoji.text = reaction
 	emoji.show()
+
+func wait_and_walk(reason: String, time = 0):	
+	emoji_show(REACTION.WAIT)
 	
 	is_in_cart = true
+	
 	await get_tree().create_timer(time).timeout
 	
 	if reason == "normal":
-		# Todo Colocar emoji de espera
-		emoji.text = REACTION.NORMAL
-		emoji.show()
+		emoji_show(REACTION.NORMAL)
 		Global.sell.emit()
 	
 	if reason == "no_money":
-		# TODO Colocar emoji sin dinero
-		emoji.text = REACTION.NO_MONEY
-		emoji.show()
+		emoji_show(REACTION.NO_MONEY)
 	
 	start_walk(self)
 	is_in_cart = false
 	
-	# Colocar emoji de reacción, si le gustó o no le gustó la limonada (propina)
-
 # Detectar el carrito de ventas y parar
 func _on_area_entered(area: Area2D) -> void:
 	if area is Cart:
@@ -94,4 +97,20 @@ func _on_timer_timeout() -> void:
 	if path_follow_2d.progress_ratio >= 1:
 		path_follow_2d.queue_free()
 		queue_free()
-		
+
+func person_explotion():
+	# Desactivar colisiones
+	$CollisionShape2D.disabled = true
+	$Area2DBack/CollisionShape2D.disabled = true
+	
+	flagPersonDied = true
+	timer.stop()
+	emoji_show(REACTION.DIED)
+	animated_sprite.play("tnt")
+
+# Cuando termina la animación de explosión
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if flagPersonDied:
+		queue_free()
+	if animated_sprite.animation == "tnt":
+		queue_free()

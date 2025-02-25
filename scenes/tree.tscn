@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlfp7off5bva8"]
+[gd_scene load_steps=25 format=3 uid="uid://dlfp7off5bva8"]
 
 [ext_resource type="Script" path="res://scripts/tree.gd" id="1_6i5lk"]
 [ext_resource type="Texture2D" uid="uid://caywq7hdtq6o2" path="res://art/Resources/Trees/Tree.png" id="1_m0mbn"]
 [ext_resource type="Texture2D" uid="uid://dlobqt2csfyk0" path="res://art/Lemons/lemon.png" id="2_owkuy"]
+[ext_resource type="Texture2D" uid="uid://qgqxdfwhsf1" path="res://art/Factions/Goblins/Troops/Barrel/Red/Barrel_Red.png" id="4_i8lxr"]
+[ext_resource type="Texture2D" uid="uid://brtstqsiyfw24" path="res://art/Effects/Explosion/Explosions.png" id="4_s7whv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gl85f"]
 atlas = ExtResource("1_m0mbn")
@@ -40,6 +42,103 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v66os"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ff57y"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmu7p"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etiwp"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j58rx"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqnnx"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dudlc"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(1152, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xami"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(1344, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmn31"]
+atlas = ExtResource("4_s7whv")
+region = Rect2(1536, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbabt"]
+atlas = ExtResource("4_i8lxr")
+region = Rect2(0, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvs2l"]
+atlas = ExtResource("4_i8lxr")
+region = Rect2(128, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ampp3"]
+atlas = ExtResource("4_i8lxr")
+region = Rect2(256, 640, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x3rf1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v66os")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ff57y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmu7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etiwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j58rx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqnnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dudlc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xami")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmn31")
+}],
+"loop": false,
+"name": &"explotion",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbabt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvs2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ampp3")
+}],
+"loop": true,
+"name": &"tnt",
+"speed": 10.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xtahb"]
 radius = 32.0
 height = 80.0
@@ -56,6 +155,9 @@ frame_progress = 0.94593
 [node name="TimerSpawLemon" type="Timer" parent="."]
 wait_time = 3.0
 
+[node name="TimerExplotion" type="Timer" parent="."]
+one_shot = true
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="Lemon" type="Sprite2D" parent="Area2D"]
@@ -63,9 +165,18 @@ position = Vector2(5.96046e-08, -2.27374e-13)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_owkuy")
 
+[node name="AnimatedTNT" type="AnimatedSprite2D" parent="Area2D"]
+sprite_frames = SubResource("SpriteFrames_x3rf1")
+animation = &"explotion"
+autoplay = "tnt"
+frame = 8
+frame_progress = 1.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_xtahb")
 
 [connection signal="timeout" from="TimerSpawLemon" to="." method="_on_timer_spaw_lemon_timeout"]
+[connection signal="timeout" from="TimerExplotion" to="." method="_on_timer_explotion_timeout"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="animation_finished" from="Area2D/AnimatedTNT" to="." method="_on_animated_tnt_animation_finished"]

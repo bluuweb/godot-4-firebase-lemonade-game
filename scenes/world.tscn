@@ -83,6 +83,22 @@ tile_set = SubResource("TileSet_j5v02")
 
 [node name="UI" parent="." instance=ExtResource("2_ftrd2")]
 
+[node name="TimeLevel" type="Node" parent="."]
+
+[node name="LevelTimeOut" type="Label" parent="TimeLevel"]
+visible = false
+offset_left = 232.0
+offset_top = 32.0
+offset_right = 404.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0, 0, 0, 0.443137)
+theme_override_font_sizes/font_size = 151
+text = "60"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLevel" type="Timer" parent="TimeLevel"]
+
 [node name="MapLayout" type="Node" parent="."]
 
 [node name="Tree1" parent="MapLayout" instance=ExtResource("5_gaboh")]
@@ -104,4 +120,5 @@ curve = SubResource("Curve2D_nskj3")
 visible = false
 curve = SubResource("Curve2D_vw6hd")
 
+[connection signal="timeout" from="TimeLevel/TimerLevel" to="." method="_on_timer_level_timeout"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

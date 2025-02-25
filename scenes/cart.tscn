@@ -22,6 +22,7 @@ animations = [{
 size = Vector2(17, 104)
 
 [node name="Cart" type="Area2D"]
+z_index = 1
 script = ExtResource("1_f2j5h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -9,18 +9,28 @@ const PERSON = preload("res://scenes/person.tscn")
 @onready var pathSelected: Path2D = path_2d
 @onready var ui: CanvasLayer = $UI
 
+@onready var label_level_time_out: Label = $TimeLevel/LevelTimeOut
+@onready var timer_level: Timer = $TimeLevel/TimerLevel
+
 var max_peoples := 10
 
 func _ready() -> void:
 	#game_start()
+	#label_level_time_out.hide()
 	ui.connect("game_start", game_start)
 	pass
 
 func game_start():
+	label_level_time_out.show()
+	timer_level.start()
 	generate_person()
 
 # Para testear
 var path1 := true
+
+# Personas en el grupo
+func people_active():
+	return get_tree().get_nodes_in_group("people")
 
 func generate_person():
 	var random_time = randf_range(1, 3)
@@ -32,11 +42,7 @@ func generate_person():
 	
 	pathSelected = paths_array[0]
 	await get_tree().create_timer(random_time).timeout
-	
-	# Contar cuántas personas existen en el grupo
-	var people_count = get_tree().get_nodes_in_group("people").size()
-
-	if people_count < max_peoples:
+	if people_active().size() < max_peoples:
 		# Crear una nueva persona
 		var person = PERSON.instantiate()
 		
@@ -53,3 +59,8 @@ func generate_person():
 		person.add_to_group("people")
 		
 	generate_person()
+
+# Temporizador del nivel
+func _on_timer_level_timeout() -> void:
+	Global.time_game -= 1
+	label_level_time_out.text = str(Global.time_game)
