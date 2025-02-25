@@ -34,8 +34,7 @@ func _on_timer_spaw_lemon_timeout() -> void:
 		if item_active == 2:
 			animated_tnt.show()
 			animated_tnt.play("tnt")
-			# TODO: activar tiempo limite y sino explotar
-			timer_explotion.start()
+			timer_explotion.start() #activar tiempo limite y sino explotar
 			
 		item_is_active = true
 		timer_spaw_lemon.stop()
@@ -51,10 +50,8 @@ func bomb_explote():
 		person.person_explotion() # Aquí explotan y queue_free
 
 	# TODO: Revisar por qué algunos siguen vivos al explotar
-	Global.update_stock(0)
 
 func bomb_disable():
-	Global.update_stock(0)
 	animated_tnt.hide()
 	item_is_active = false
 	timer_spaw_lemon.start()

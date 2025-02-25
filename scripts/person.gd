@@ -7,16 +7,11 @@ extends Area2D
 @onready var emoji: Label = $Emoji
 
 var timer_seconds = 0.1
-var flagBackPerson := false
-var flagFrontPerson := false
-var flagCart := false
-
-var flagPersonDied := false
-
+var flag_person_died := false
 var is_in_cart := false
 
 # Lista de diseños disponibles
-var designs = ["green_gobling", "blue_knight", "red_archer"] # Agrega tantos diseños como necesites
+const DESIGNS = ["green_gobling", "blue_knight", "red_archer"] # Agrega tantos diseños como necesites
 var selected_design: String
 
 var money := 1.0
@@ -34,27 +29,30 @@ const REACTION = {
 func _ready() -> void:
 	emoji.hide()
 	# Seleccionar un diseño al azar
-	randomize() # Inicializa el generador de números aleatorios
-	var random_design = randi_range(0, designs.size() - 1)
-	selected_design = designs[random_design]
+	var random_design = randi_range(0, DESIGNS.size() - 1)
+	selected_design = DESIGNS[random_design]
 	
 	# Configurar las animaciones iniciales según el diseño seleccionado
 	animated_sprite.play("walk_" + selected_design)
 
 	timer.wait_time = timer_seconds
 	
-	# Generar money de forma aleatoria
+	# Generar dinero de forma aleatoria
 	money = randf_range(min_money, max_money)
 
-func stop_walk(area: Area2D):
-	if flagPersonDied: return
-	area.timer.stop()
-	area.animated_sprite.play("idle_" + area.selected_design) # Usa el diseño seleccionado
+# state: "idle_", "walk_"
+func play_animation(state):
+	animated_sprite.play(state + selected_design) # Usa el diseño seleccionado
 
-func start_walk(area: Area2D):
-	if flagPersonDied: return
-	area.timer.start()
-	area.animated_sprite.play("walk_" + area.selected_design)
+func stop_walk():
+	if flag_person_died: return
+	timer.stop()
+	play_animation("idle_")
+
+func start_walk():
+	if flag_person_died: return
+	timer.start()
+	play_animation("walk_")
 	
 func emoji_show(reaction: String):
 	emoji.text = reaction
@@ -74,22 +72,22 @@ func wait_and_walk(reason: String, time = 0):
 	if reason == "no_money":
 		emoji_show(REACTION.NO_MONEY)
 	
-	start_walk(self)
+	start_walk()
 	is_in_cart = false
 	
 # Detectar el carrito de ventas y parar
 func _on_area_entered(area: Area2D) -> void:
 	if area is Cart:
-		stop_walk(self) # Me detengo
+		stop_walk() # Me detengo
 
 # Detectó una persona atrás
 func _on_area_2d_back_area_entered(area: Area2D) -> void:
 	if area is Person:
-		stop_walk(area) # Que se detenga el de atrás
+		area.stop_walk() # Que se detenga el de atrás
 
 func _on_area_2d_back_area_exited(area: Area2D) -> void:
 	if area is Person and area.is_in_cart == false:
-		start_walk(area) # Aquí hago que camine el de atrás
+		area.start_walk() # Aquí hago que camine el de atrás
 		
 # Manejar el avance del camino
 func _on_timer_timeout() -> void:
@@ -103,14 +101,14 @@ func person_explotion():
 	$CollisionShape2D.disabled = true
 	$Area2DBack/CollisionShape2D.disabled = true
 	
-	flagPersonDied = true
+	flag_person_died = true
 	timer.stop()
 	emoji_show(REACTION.DIED)
 	animated_sprite.play("tnt")
 
 # Cuando termina la animación de explosión
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if flagPersonDied:
+	if flag_person_died:
 		queue_free()
 	if animated_sprite.animation == "tnt":
 		queue_free()
