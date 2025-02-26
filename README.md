@@ -6,6 +6,10 @@
 
 ## Tween
 
+- [https://docs.godotengine.org/es/4.x/classes/class_tween.html](https://docs.godotengine.org/es/4.x/classes/class_tween.html)
+- [https://easings.net/](https://easings.net/)
+- [https://raw.githubusercontent.com/godotengine/godot-docs/master/img/tween_cheatsheet.webp](https://raw.githubusercontent.com/godotengine/godot-docs/master/img/tween_cheatsheet.webp)
+
 Ejemplo básico:
 
 ```py
