@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://vk2icjwx663w"]
+[gd_scene load_steps=8 format=3 uid="uid://vk2icjwx663w"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_8ocg0"]
 [ext_resource type="Texture2D" uid="uid://c0i8io35dkwx5" path="res://art/UI/Pointers/01.png" id="2_wq7m6"]
 [ext_resource type="StyleBox" uid="uid://cuyjupcba27r1" path="res://ui/button_start.tres" id="4_gb6lh"]
 [ext_resource type="Texture2D" uid="uid://btn8oqkatgbjw" path="res://art/UI/Buttons/Button_Blue_3Slides.png" id="4_vtujn"]
 [ext_resource type="PackedScene" uid="uid://c32s5826035bm" path="res://scenes/ui_info_text.tscn" id="5_qecjh"]
+[ext_resource type="PackedScene" uid="uid://b8jjku5hsubfu" path="res://scenes/modalBuyStock.tscn" id="6_hsenu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fhebg"]
 texture = ExtResource("4_vtujn")
@@ -59,8 +60,28 @@ position = Vector2(224, 8)
 position = Vector2(424, 18)
 scale = Vector2(0.75, 0.75)
 
+[node name="ButtonPriceUp" type="Button" parent="UIPrice"]
+offset_left = 160.0
+offset_top = -13.3333
+offset_right = 192.0
+offset_bottom = 21.6667
+theme_override_font_sizes/font_size = 20
+text = "⬆️"
+
+[node name="ButtonPriceDown" type="Button" parent="UIPrice"]
+offset_left = 160.0
+offset_top = 29.3333
+offset_right = 213.0
+offset_bottom = 60.3333
+theme_override_font_sizes/font_size = 20
+text = "⬇️"
+
 [node name="UIStock" parent="." instance=ExtResource("5_qecjh")]
 position = Vector2(70, 18)
 scale = Vector2(0.75, 0.75)
 
+[node name="ModalBuyStock" parent="." instance=ExtResource("6_hsenu")]
+
 [connection signal="pressed" from="ButtonStart" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UIPrice/ButtonPriceUp" to="." method="_on_button_price_up_pressed"]
+[connection signal="pressed" from="UIPrice/ButtonPriceDown" to="." method="_on_button_price_down_pressed"]

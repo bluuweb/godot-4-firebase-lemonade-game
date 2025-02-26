@@ -21,8 +21,8 @@ var max_money := 5.0
 # 💰😵😵‍💫🥺💸💵
 const REACTION = {
 	"WAIT": "⌛",
-	"NORMAL": "😄",
-	"NO_MONEY": "😵",
+	"NORMAL": "🍋",
+	"NO_MONEY": "💵👎",
 	"DIED": "💀"
 }
 

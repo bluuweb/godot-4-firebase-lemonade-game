@@ -1,7 +1,7 @@
 extends Node
 
-var price := 3
-var profit := 0
+var price := 3.0
+var profit := 20.0
 var stock := 0
 var time_game := 60
 var bonus_time := 10
@@ -14,6 +14,7 @@ const headers = ["Content-Type: application/json"]
 
 signal sell
 signal update_stock_signal
+signal update_price_signal
 
 func _ready():
 	
@@ -26,17 +27,25 @@ func _ready():
 	http_request_put.request_completed.connect(self._http_request_put_completed)
 	
 	# read_data()
-	
+
 func sell_lemonade():
 	if(stock > 0):
 		stock -= 1
 		profit += price
-		time_game += bonus_time
+		#time_game += bonus_time
 		# send_data()
+		
+func update_price(value: float):
+	price += value
+	update_price_signal.emit()
+	
 func update_stock(value: int):
 	print("update_stock global", value)
 	stock += value
 	update_stock_signal.emit()
+
+func update_profit(value: float):
+	profit += value
 		
 func read_data():
 	http_request_get.request(url, headers, HTTPClient.METHOD_GET)

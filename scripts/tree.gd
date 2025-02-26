@@ -22,8 +22,9 @@ func _ready() -> void:
 	timer_explotion.wait_time = second_active_tnt
 	
 func game_start():
-	timer_spaw_lemon.wait_time = timeLemon
-	timer_spaw_lemon.start()
+	#timer_spaw_lemon.wait_time = timeLemon
+	#timer_spaw_lemon.start()
+	pass
 
 # Temporizador para que aparezcan los limones y tnt
 func _on_timer_spaw_lemon_timeout() -> void:

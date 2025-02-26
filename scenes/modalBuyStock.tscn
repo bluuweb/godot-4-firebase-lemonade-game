@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8jjku5hsubfu"]
+
+[ext_resource type="Script" path="res://scripts/modal_buy_stock.gd" id="1_8nddr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tf0v"]
+bg_color = Color(5.77569e-07, 0.53369, 0.81869, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8gb7"]
+bg_color = Color(0.996078, 0.278431, 0.592157, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0txdg"]
+bg_color = Color(1.05888e-06, 0.492613, 0.403167, 1)
+
+[node name="Modal" type="Node2D"]
+script = ExtResource("1_8nddr")
+
+[node name="ColorBackground" type="ColorRect" parent="."]
+offset_left = 122.0
+offset_top = 176.0
+offset_right = 530.0
+offset_bottom = 328.0
+color = Color(0, 0, 0, 0.811765)
+
+[node name="Stock" type="VBoxContainer" parent="."]
+offset_left = 144.0
+offset_top = 184.0
+offset_right = 504.0
+offset_bottom = 304.0
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stock"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelStockModal" type="Label" parent="Stock/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Costo Limonada $3 c/u"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Stock/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ModalButtonUpStock" type="Button" parent="Stock/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5tf0v")
+text = "⬆️"
+
+[node name="ModalLabelPreStock" type="Label" parent="Stock/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "0"
+
+[node name="ModalButtonDownStock" type="Button" parent="Stock/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_c8gb7")
+text = "⬇️"
+
+[node name="ModalRecipe" type="Label" parent="Stock/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "1 limonada = 2 de azucar + 5 limones + 2 hielos"
+horizontal_alignment = 1
+
+[node name="ModalButtonBuy" type="Button" parent="Stock/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_0txdg")
+text = "Comprar $5"
+
+[connection signal="pressed" from="Stock/VBoxContainer/HBoxContainer/ModalButtonUpStock" to="." method="_on_modal_button_up_stock_pressed"]
+[connection signal="pressed" from="Stock/VBoxContainer/HBoxContainer/ModalButtonDownStock" to="." method="_on_modal_button_down_stock_pressed"]
+[connection signal="pressed" from="Stock/VBoxContainer/ModalButtonBuy" to="." method="_on_modal_button_buy_pressed"]
