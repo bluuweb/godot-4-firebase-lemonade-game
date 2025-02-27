@@ -64,6 +64,3 @@ func generate_person():
 func _on_timer_level_timeout() -> void:
 	Global.time_game -= 1
 	label_level_time_out.text = str(Global.time_game)
-
-func _on_button_start_pressed() -> void:
-	game_start() # Aquí estoy accediendo a los hijos editables

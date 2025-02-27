@@ -60,7 +60,6 @@ animations = [{
 }]
 
 [node name="AnimatedGold" type="AnimatedSprite2D"]
-visible = false
 sprite_frames = SubResource("SpriteFrames_0v3mr")
 animation = &"sell"
 frame = 6

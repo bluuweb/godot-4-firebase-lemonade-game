@@ -3,8 +3,8 @@ extends CanvasLayer
 @export var cursor_image: Texture2D
 @onready var button_start: Button = $ButtonStart
 @onready var ui_profit: Node = $UIProfit
-@onready var ui_price: Node2D = $UIPrice
-@onready var ui_stock: Node2D = $UIStock
+@onready var ui_price: Control = $UIPrice
+@onready var ui_stock: Control = $UIStock
 
 #@onready var ModalBuyStock: Node2D = $Modal
 
@@ -34,16 +34,16 @@ func update_stock():
 
 func sell():
 	ui_profit.update_text("$ " + str(Global.profit))
-	ui_profit.animate()
+	$UIProfit/AnimatedGold.play("sell")
 	
 	ui_stock.update_text("Stock: " + str(Global.stock))
 
 # Aumentar el precio
 func _on_button_price_up_pressed() -> void:
-	Global.update_price(0.5)
+	Global.update_price(1)
 	ui_price.update_text("Price: " + str(Global.price))
 
 # Disminuir el precio
 func _on_button_price_down_pressed() -> void:
-	Global.update_price(-0.5)
+	Global.update_price(-1)
 	ui_price.update_text("Price: " + str(Global.price))

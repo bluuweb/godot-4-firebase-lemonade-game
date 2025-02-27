@@ -1,10 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8jjku5hsubfu"]
+[gd_scene load_steps=3 format=3 uid="uid://b8jjku5hsubfu"]
 
 [ext_resource type="Script" path="res://scripts/modal_buy_stock.gd" id="1_8nddr"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqw5h"]
+content_margin_left = 0.0
+content_margin_top = 15.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="Modal" type="PanelContainer"]
-offset_right = 280.0
-offset_bottom = 248.0
+offset_right = 396.0
+offset_bottom = 199.0
 script = ExtResource("1_8nddr")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -14,37 +19,43 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+columns = 3
 
-[node name="LabelStockModal" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="LabelStockModal" type="Label" parent="MarginContainer/GridContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_mqw5h")
 text = "Costo Limonada $3 c/u"
 horizontal_alignment = 1
 
-[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="MarginContainer/GridContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainerStock" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+[node name="PanelContainerStock" type="PanelContainer" parent="MarginContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"PanelContainerStock"
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/PanelContainerStock"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock"]
 layout_mode = 2
 columns = 3
 
-[node name="ModalButtonDownStock" type="Button" parent="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer"]
+[node name="ModalButtonDownStock" type="Button" parent="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "⬇️"
 
-[node name="ModalLabelPreStock" type="Label" parent="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer"]
+[node name="ModalLabelPreStock" type="Label" parent="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -52,44 +63,57 @@ theme_override_font_sizes/font_size = 28
 text = "0"
 horizontal_alignment = 1
 
-[node name="ModalButtonUpStock" type="Button" parent="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer"]
+[node name="ModalButtonUpStock" type="Button" parent="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "⬆️"
 
-[node name="Spacer3" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer3" type="Control" parent="MarginContainer/GridContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ModalRecipe" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="ModalRecipe" type="Label" parent="MarginContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "1 limonada = 2 de azucar + 5 limones + 2 hielos"
 horizontal_alignment = 1
 
-[node name="Spacer4" type="Control" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="ModalButtonBuy" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ButtonBuy" type="Button" parent="MarginContainer/GridContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Comprar $5"
-
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 2
 size_flags_vertical = 3
+text = "Comprar
+$10"
 
-[node name="ButtonStart" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="ButtonStart" type="Button" parent="MarginContainer/GridContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Comenzar"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonDownStock" to="." method="_on_modal_button_down_stock_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonUpStock" to="." method="_on_modal_button_up_stock_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ModalButtonBuy" to="." method="_on_modal_button_buy_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_pressed"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Publicidad $20
++10% de clientes"
+
+[node name="Button2" type="Button" parent="MarginContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Empleados $50
++50% velocidad"
+
+[connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonDownStock" to="." method="_on_modal_button_down_stock_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonUpStock" to="." method="_on_modal_button_up_stock_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer2/ButtonBuy" to="." method="_on_button_buy_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer2/ButtonStart" to="." method="_on_button_start_pressed"]

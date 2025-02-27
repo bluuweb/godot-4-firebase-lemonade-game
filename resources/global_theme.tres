@@ -1,24 +1,12 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c5fq7gnpjwtrs"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c5fq7gnpjwtrs"]
+
+[ext_resource type="StyleBox" uid="uid://05qpevyfnu8y" path="res://resources/button_disabled.tres" id="1_7s6dh"]
+[ext_resource type="StyleBox" uid="uid://bw5vb2a78sqmg" path="res://resources/button_hover.tres" id="1_d8mu4"]
+[ext_resource type="StyleBox" uid="uid://ctlxxywikhjvu" path="res://resources/button_normal.tres" id="2_r3yym"]
 
 [sub_resource type="SystemFont" id="SystemFont_l148j"]
 font_names = PackedStringArray("Candara")
 font_weight = 600
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wbwa6"]
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0, 0.677933, 0.744218, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_size = 2
-shadow_offset = Vector2(-2, 3)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_80gkk"]
 
@@ -27,7 +15,22 @@ font_names = PackedStringArray("Candara")
 font_weight = 600
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msl20"]
-bg_color = Color(0.231373, 0.223529, 0.537255, 0.839216)
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.231373, 0.223529, 0.537255, 0.913725)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1sw4"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 0.733333)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -36,8 +39,19 @@ corner_radius_bottom_left = 10
 [resource]
 Button/font_sizes/font_size = 20
 Button/fonts/font = SubResource("SystemFont_l148j")
-Button/styles/normal = SubResource("StyleBoxFlat_wbwa6")
+Button/styles/disabled = ExtResource("1_7s6dh")
+Button/styles/hover = ExtResource("1_d8mu4")
+Button/styles/hover_pressed = null
+Button/styles/normal = ExtResource("2_r3yym")
+Button/styles/pressed = ExtResource("2_r3yym")
 ButtonDown/base_type = &"Button"
 ButtonDown/styles/normal = SubResource("StyleBoxTexture_80gkk")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 12
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 0
 Label/fonts/font = SubResource("SystemFont_3g48k")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_msl20")
+PanelContainerStock/base_type = &"PanelContainer"
+PanelContainerStock/styles/panel = SubResource("StyleBoxFlat_f1sw4")

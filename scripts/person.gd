@@ -14,9 +14,9 @@ var is_in_cart := false
 const DESIGNS = ["green_gobling", "blue_knight", "red_archer"] # Agrega tantos diseños como necesites
 var selected_design: String
 
-var money := 1.0
-var min_money := 0.0
-var max_money := 5.0
+var money := 1
+var min_money := 2
+var max_money := 6
 
 # 💰😵😵‍💫🥺💸💵
 const REACTION = {
@@ -38,7 +38,7 @@ func _ready() -> void:
 	timer.wait_time = timer_seconds
 	
 	# Generar dinero de forma aleatoria
-	money = randf_range(min_money, max_money)
+	money = randi_range(min_money, max_money)
 
 # state: "idle_", "walk_"
 func play_animation(state):

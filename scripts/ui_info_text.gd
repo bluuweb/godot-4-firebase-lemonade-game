@@ -1,15 +1,7 @@
-extends Node2D
+extends Control
 
-@onready var background: Sprite2D = $Background
-@onready var label: Label = $Label
-@onready var animated: AnimatedSprite2D = $Animated
-
-func _ready() -> void:
-	pass
+@onready var label: Label = $PanelContainer/Label
 
 func update_text(text: String):
 	label.text = text
-
-func animate():
-	animated.play("sell")
 	

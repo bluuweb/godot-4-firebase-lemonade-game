@@ -1,7 +1,7 @@
 extends Node
 
-var price := 3.0
-var profit := 20.0
+var price := 2
+var profit := 20
 var stock := 0
 var time_game := 60
 var bonus_time := 10
@@ -35,7 +35,7 @@ func sell_lemonade():
 		#time_game += bonus_time
 		# send_data()
 		
-func update_price(value: float):
+func update_price(value: int):
 	price += value
 	update_price_signal.emit()
 	
@@ -44,7 +44,7 @@ func update_stock(value: int):
 	stock += value
 	update_stock_signal.emit()
 
-func update_profit(value: float):
+func update_profit(value: int):
 	profit += value
 		
 func read_data():
