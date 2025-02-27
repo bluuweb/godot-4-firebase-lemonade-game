@@ -8,8 +8,6 @@ extends CanvasLayer
 
 #@onready var ModalBuyStock: Node2D = $Modal
 
-signal game_start
-
 func _ready() -> void:
 	modal_initial_config()
 	
@@ -29,30 +27,16 @@ func _ready() -> void:
 		print("La imagen del cursor no está cargada.")
 
 func modal_initial_config():
-	button_start.disabled = true
 	$ModalBuyStock.initial_modal_config() # TODO: por qué el @onready no funciona aquí
 
 func update_stock():
 	ui_stock.update_text("Stock: " + str(Global.stock))
-	if Global.stock > 0:
-		button_start.disabled = false
 
 func sell():
 	ui_profit.update_text("$ " + str(Global.profit))
 	ui_profit.animate()
 	
 	ui_stock.update_text("Stock: " + str(Global.stock))
-
-func _on_button_pressed() -> void:
-	# Aquí llamo a World
-	# $"..".game_start()
-	game_start.emit()
-
-	#await get_tree().create_timer(0.5).timeout
-	# Ocultar el botón animate_button_start
-	button_start.hide()
-	$ModalBuyStock.hide()
-	
 
 # Aumentar el precio
 func _on_button_price_up_pressed() -> void:

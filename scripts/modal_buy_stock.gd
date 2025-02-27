@@ -1,9 +1,11 @@
-extends Node2D
-@onready var label_stock_modal: Label = $Stock/VBoxContainer/LabelStockModal
-@onready var modal_button_up_stock: Button = $Stock/VBoxContainer/HBoxContainer/ModalButtonUpStock
-@onready var modal_label_pre_stock: Label = $Stock/VBoxContainer/HBoxContainer/ModalLabelPreStock
-@onready var modal_button_down_stock: Button = $Stock/VBoxContainer/HBoxContainer/ModalButtonDownStock
-@onready var modal_button_buy: Button = $Stock/VBoxContainer/ModalButtonBuy
+extends PanelContainer
+
+@onready var modal_button_buy: Button = %ModalButtonBuy
+@onready var label_stock_modal: Label = %LabelStockModal
+@onready var modal_button_up_stock: Button = %ModalButtonUpStock
+@onready var modal_label_pre_stock: Label = %ModalLabelPreStock
+@onready var modal_button_down_stock: Button = %ModalButtonDownStock
+@onready var button_start: Button = %ButtonStart
 
 # const UI = preload("res://scenes/ui.tscn")
 @onready var ui: CanvasLayer = $".."
@@ -11,6 +13,8 @@ extends Node2D
 var pre_stock := 0
 var price_limonade_unit := 2
 var cost := 0
+
+signal game_start
 
 func _ready() -> void:
 	pass 
@@ -20,6 +24,7 @@ func initial_modal_config():
 	modal_button_buy.text = str("Comprar: $" , pre_stock * price_limonade_unit)
 	label_stock_modal.text = str("Costo Limonada $", price_limonade_unit , " c/u")
 
+	button_start.disabled = true
 func update_pre_stock(value: int):
 	pre_stock += value
 	
@@ -48,7 +53,14 @@ func _on_modal_button_buy_pressed() -> void:
 	
 	# Aquí acceso al nodo parent (UI en este caso) 
 	$"..".ui_profit.update_text("$ " + str(Global.profit))
-	ui.button_start.disabled = false
 	
 	update_pre_stock(-pre_stock)
 	modal_button_buy.disabled = true
+	
+	if Global.stock > 0:
+		button_start.disabled = false
+
+# Cuando se presiona el botón de start
+func _on_button_start_pressed() -> void:
+	game_start.emit()
+	self.hide()

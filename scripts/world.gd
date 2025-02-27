@@ -15,12 +15,12 @@ const PERSON = preload("res://scenes/person.tscn")
 var max_peoples := 10
 
 func _ready() -> void:
-	#game_start()
-	#label_level_time_out.hide()
-	ui.connect("game_start", game_start)
+	# Opcion conectando la señal
+	#get_node("UI").get_node("ModalBuyStock").connect("game_start", game_start)
 	pass
-
+	
 func game_start():
+	print("Comenzó el juego")
 	label_level_time_out.show()
 	timer_level.start()
 	generate_person()
@@ -64,3 +64,6 @@ func generate_person():
 func _on_timer_level_timeout() -> void:
 	Global.time_game -= 1
 	label_level_time_out.text = str(Global.time_game)
+
+func _on_button_start_pressed() -> void:
+	game_start() # Aquí estoy accediendo a los hijos editables

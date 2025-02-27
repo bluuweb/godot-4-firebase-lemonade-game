@@ -1,90 +1,95 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8jjku5hsubfu"]
+[gd_scene load_steps=2 format=3 uid="uid://b8jjku5hsubfu"]
 
 [ext_resource type="Script" path="res://scripts/modal_buy_stock.gd" id="1_8nddr"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tf0v"]
-bg_color = Color(5.77569e-07, 0.53369, 0.81869, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8gb7"]
-bg_color = Color(0.996078, 0.278431, 0.592157, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0txdg"]
-bg_color = Color(1.05888e-06, 0.492613, 0.403167, 1)
-
-[node name="Modal" type="Node2D"]
+[node name="Modal" type="PanelContainer"]
+offset_right = 280.0
+offset_bottom = 248.0
 script = ExtResource("1_8nddr")
 
-[node name="ColorBackground" type="ColorRect" parent="."]
-offset_left = 122.0
-offset_top = 176.0
-offset_right = 530.0
-offset_bottom = 328.0
-color = Color(0, 0, 0, 0.811765)
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="Stock" type="VBoxContainer" parent="."]
-offset_left = 144.0
-offset_top = 184.0
-offset_right = 504.0
-offset_bottom = 304.0
-size_flags_horizontal = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Stock"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LabelStockModal" type="Label" parent="Stock/VBoxContainer"]
+[node name="LabelStockModal" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Costo Limonada $3 c/u"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Stock/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 3
 
-[node name="ModalButtonUpStock" type="Button" parent="Stock/VBoxContainer/HBoxContainer"]
+[node name="PanelContainerStock" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_5tf0v")
-text = "⬆️"
 
-[node name="ModalLabelPreStock" type="Label" parent="Stock/VBoxContainer/HBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/PanelContainerStock"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "0"
+columns = 3
 
-[node name="ModalButtonDownStock" type="Button" parent="Stock/VBoxContainer/HBoxContainer"]
+[node name="ModalButtonDownStock" type="Button" parent="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_c8gb7")
+size_flags_horizontal = 3
 text = "⬇️"
 
-[node name="ModalRecipe" type="Label" parent="Stock/VBoxContainer"]
+[node name="ModalLabelPreStock" type="Label" parent="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 14
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "0"
+horizontal_alignment = 1
+
+[node name="ModalButtonUpStock" type="Button" parent="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "⬆️"
+
+[node name="Spacer3" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ModalRecipe" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 text = "1 limonada = 2 de azucar + 5 limones + 2 hielos"
 horizontal_alignment = 1
 
-[node name="ModalButtonBuy" type="Button" parent="Stock/VBoxContainer"]
+[node name="Spacer4" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0txdg")
+size_flags_vertical = 3
+
+[node name="ModalButtonBuy" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Comprar $5"
 
-[connection signal="pressed" from="Stock/VBoxContainer/HBoxContainer/ModalButtonUpStock" to="." method="_on_modal_button_up_stock_pressed"]
-[connection signal="pressed" from="Stock/VBoxContainer/HBoxContainer/ModalButtonDownStock" to="." method="_on_modal_button_down_stock_pressed"]
-[connection signal="pressed" from="Stock/VBoxContainer/ModalButtonBuy" to="." method="_on_modal_button_buy_pressed"]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonStart" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Comenzar"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonDownStock" to="." method="_on_modal_button_down_stock_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonUpStock" to="." method="_on_modal_button_up_stock_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ModalButtonBuy" to="." method="_on_modal_button_buy_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_pressed"]

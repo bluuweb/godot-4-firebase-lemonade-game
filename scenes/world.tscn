@@ -120,5 +120,9 @@ curve = SubResource("Curve2D_nskj3")
 visible = false
 curve = SubResource("Curve2D_vw6hd")
 
+[connection signal="pressed" from="UI/ModalBuyStock/MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_pressed"]
 [connection signal="timeout" from="TimeLevel/TimerLevel" to="." method="_on_timer_level_timeout"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+
+[editable path="UI"]
+[editable path="UI/ModalBuyStock"]

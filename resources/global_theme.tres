@@ -1,0 +1,43 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c5fq7gnpjwtrs"]
+
+[sub_resource type="SystemFont" id="SystemFont_l148j"]
+font_names = PackedStringArray("Candara")
+font_weight = 600
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wbwa6"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.677933, 0.744218, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 2
+shadow_offset = Vector2(-2, 3)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_80gkk"]
+
+[sub_resource type="SystemFont" id="SystemFont_3g48k"]
+font_names = PackedStringArray("Candara")
+font_weight = 600
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msl20"]
+bg_color = Color(0.231373, 0.223529, 0.537255, 0.839216)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+Button/font_sizes/font_size = 20
+Button/fonts/font = SubResource("SystemFont_l148j")
+Button/styles/normal = SubResource("StyleBoxFlat_wbwa6")
+ButtonDown/base_type = &"Button"
+ButtonDown/styles/normal = SubResource("StyleBoxTexture_80gkk")
+Label/fonts/font = SubResource("SystemFont_3g48k")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_msl20")

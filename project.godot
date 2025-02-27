@@ -31,6 +31,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/SimpleTODO/plugin.cfg")
 
+[gui]
+
+theme/custom="res://resources/global_theme.tres"
+
 [input]
 
 ui_left={

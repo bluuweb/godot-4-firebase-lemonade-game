@@ -1,22 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://vk2icjwx663w"]
+[gd_scene load_steps=5 format=3 uid="uid://vk2icjwx663w"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_8ocg0"]
 [ext_resource type="Texture2D" uid="uid://c0i8io35dkwx5" path="res://art/UI/Pointers/01.png" id="2_wq7m6"]
-[ext_resource type="StyleBox" uid="uid://cuyjupcba27r1" path="res://ui/button_start.tres" id="4_gb6lh"]
-[ext_resource type="Texture2D" uid="uid://btn8oqkatgbjw" path="res://art/UI/Buttons/Button_Blue_3Slides.png" id="4_vtujn"]
 [ext_resource type="PackedScene" uid="uid://c32s5826035bm" path="res://scenes/ui_info_text.tscn" id="5_qecjh"]
 [ext_resource type="PackedScene" uid="uid://b8jjku5hsubfu" path="res://scenes/modalBuyStock.tscn" id="6_hsenu"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fhebg"]
-texture = ExtResource("4_vtujn")
-texture_margin_left = 13.0
-texture_margin_top = 2.0
-texture_margin_right = 13.0
-texture_margin_bottom = 6.0
-expand_margin_left = 17.0
-expand_margin_top = 3.0
-expand_margin_right = 17.0
-expand_margin_bottom = 17.0
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_8ocg0")
@@ -36,22 +23,6 @@ text = "Price: $ 1"
 [node name="LabelStock" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Stock: $ 100"
-
-[node name="ButtonStart" type="Button" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -76.5
-offset_top = 109.0
-offset_right = 76.5
-offset_bottom = 153.0
-grow_horizontal = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 26
-theme_override_styles/hover = ExtResource("4_gb6lh")
-theme_override_styles/pressed = ExtResource("4_gb6lh")
-theme_override_styles/normal = SubResource("StyleBoxTexture_fhebg")
-text = "Comenzar"
 
 [node name="UIProfit" parent="." instance=ExtResource("5_qecjh")]
 position = Vector2(224, 8)
@@ -81,7 +52,17 @@ position = Vector2(70, 18)
 scale = Vector2(0.75, 0.75)
 
 [node name="ModalBuyStock" parent="." instance=ExtResource("6_hsenu")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.5
+offset_top = -78.5
+offset_right = 123.5
+offset_bottom = 78.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[connection signal="pressed" from="ButtonStart" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UIPrice/ButtonPriceUp" to="." method="_on_button_price_up_pressed"]
 [connection signal="pressed" from="UIPrice/ButtonPriceDown" to="." method="_on_button_price_down_pressed"]
