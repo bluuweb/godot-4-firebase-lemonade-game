@@ -101,19 +101,20 @@ text = "Comenzar"
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/GridContainer/VBoxContainer3"]
+[node name="ButtonBuyPublished" type="Button" parent="MarginContainer/GridContainer/VBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Publicidad $20
 +10% de clientes"
 
-[node name="Button2" type="Button" parent="MarginContainer/GridContainer/VBoxContainer3"]
+[node name="ButtonBuyEmployee" type="Button" parent="MarginContainer/GridContainer/VBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Empleados $50
-+50% velocidad"
++10% velocidad"
 
 [connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonDownStock" to="." method="_on_modal_button_down_stock_pressed"]
 [connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonUpStock" to="." method="_on_modal_button_up_stock_pressed"]
 [connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer2/ButtonBuy" to="." method="_on_button_buy_pressed"]
 [connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer2/ButtonStart" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer3/ButtonBuyEmployee" to="." method="_on_button_buy_employee_pressed"]

@@ -20,7 +20,8 @@ func _ready() -> void:
 	pass
 	
 func game_start():
-	print("Comenzó el juego")
+	get_tree().paused = false
+	$TimeLevel/LevelTimeOut.text = str(Global.time_game)
 	label_level_time_out.show()
 	timer_level.start()
 	generate_person()
@@ -33,7 +34,8 @@ func people_active():
 	return get_tree().get_nodes_in_group("people")
 
 func generate_person():
-	var random_time = randf_range(1, 3)
+	# Cuanto se demora en salir una nueva persona
+	var time_out_new_person = randf_range(1, 3)
 	
 	#pathSelected = paths_array[randi_range(0, paths_array.size() - 1)]
 	
@@ -41,7 +43,7 @@ func generate_person():
 	#path1 = !path1
 	
 	pathSelected = paths_array[0]
-	await get_tree().create_timer(random_time).timeout
+	await get_tree().create_timer(time_out_new_person).timeout
 	if people_active().size() < max_peoples:
 		# Crear una nueva persona
 		var person = PERSON.instantiate()
@@ -62,5 +64,11 @@ func generate_person():
 
 # Temporizador del nivel
 func _on_timer_level_timeout() -> void:
+	if Global.time_game <= 0:
+		Global.time_game = 30
+		$UI/ModalBuyStock.show()
+		get_tree().paused = true
+		return
+	
 	Global.time_game -= 1
 	label_level_time_out.text = str(Global.time_game)

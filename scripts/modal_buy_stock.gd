@@ -7,6 +7,7 @@ extends PanelContainer
 @onready var modal_label_pre_stock: Label = %ModalLabelPreStock
 @onready var modal_button_down_stock: Button = %ModalButtonDownStock
 @onready var button_start: Button = %ButtonStart
+@onready var button_buy_employee: Button = $MarginContainer/GridContainer/VBoxContainer3/ButtonBuyEmployee
 
 # const UI = preload("res://scenes/ui.tscn")
 @onready var ui: CanvasLayer = $".."
@@ -24,8 +25,9 @@ func initial_modal_config():
 	button_buy.disabled = true
 	button_update_text()
 	label_stock_modal.text = str("Costo Limonada $", price_limonade_unit , " c/u")
-
 	button_start.disabled = true
+	update_button_buy_employee()
+
 func update_pre_stock(value: int):
 	pre_stock += value
 	
@@ -58,6 +60,8 @@ func _on_button_buy_pressed() -> void:
 	update_pre_stock(-pre_stock)
 	button_buy.disabled = true
 	
+	update_button_buy_employee()
+	
 	if Global.stock > 0:
 		button_start.disabled = false
 
@@ -65,3 +69,27 @@ func _on_button_buy_pressed() -> void:
 func _on_button_start_pressed() -> void:
 	game_start.emit()
 	self.hide()
+
+# Aquí se compra un empleado y se reduce en un 10% la venta de limonada
+func _on_button_buy_employee_pressed() -> void:
+	if Global.profit >= Global.employee_cost:
+		if Global.employee_count >= Global.employee_max_number:
+			update_button_buy_employee()
+			return
+		Global.employee_upgrade()
+		update_button_buy_employee()
+		$"..".ui_profit.update_text("$ " + str(Global.profit))
+	else:
+		print("Profit insuficiente")
+
+func update_button_buy_employee():
+	if Global.employee_count >= Global.employee_max_number:
+		button_buy_employee.disabled = true
+		button_buy_employee.text = str("Empleados \n Full Upgrade")
+		return
+		
+	button_buy_employee.text = str("Empleados $" , Global.employee_cost, "\n +10% velocidad")
+	if Global.profit >= Global.employee_cost:
+		button_buy_employee.disabled = false
+	else:
+		button_buy_employee.disabled = true

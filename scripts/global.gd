@@ -1,10 +1,18 @@
 extends Node
 
 var price := 2
-var profit := 20
+var profit := 30000
 var stock := 0
-var time_game := 60
+var time_game := 30
 var bonus_time := 10
+var time_wait_for_limonade := 3.0
+
+# Upgrade games
+var employee_upgrade_percent = 0.1
+var employee_count = 1
+var employee_cost_base = 50
+var employee_cost = 50
+var employee_max_number = 57
 
 var http_request_get = HTTPRequest.new()
 var http_request_put = HTTPRequest.new()
@@ -27,6 +35,16 @@ func _ready():
 	http_request_put.request_completed.connect(self._http_request_put_completed)
 	
 	# read_data()
+
+func employee_upgrade():
+	if employee_count >= employee_max_number:
+		return
+	
+	update_profit(-employee_cost)
+	time_wait_for_limonade += -time_wait_for_limonade * employee_upgrade_percent
+	employee_count += 1
+	print("employee_count ", employee_count)
+	employee_cost = employee_count * employee_cost_base
 
 func sell_lemonade():
 	if(stock > 0):

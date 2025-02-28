@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b8jjku5hsubfu" path="res://scenes/modalBuyStock.tscn" id="6_hsenu"]
 
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_8ocg0")
 cursor_image = ExtResource("2_wq7m6")
 
@@ -36,6 +37,7 @@ offset_bottom = 13.0
 grow_horizontal = 2
 
 [node name="AnimatedGold" parent="UIProfit" instance=ExtResource("4_ncbrl")]
+process_mode = 3
 position = Vector2(4, 43)
 scale = Vector2(0.9, 0.9)
 
