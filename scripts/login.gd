@@ -1,23 +1,75 @@
 extends Node2D
 
-@onready var line_edit_input: LineEdit = $VBoxContainer/HBoxContainer/LineEditInput
 @onready var label_error: Label = $VBoxContainer/LabelError
+@onready var input_email: LineEdit = $VBoxContainer/InputEmail
+@onready var input_password: LineEdit = $VBoxContainer/InputPassword
+
+const COLLECTION_NAME = "users"
 
 func _ready() -> void:
 	label_error.hide()
+	# Conectar las señales
+	Firebase.Auth.login_succeeded.connect(_on_FirebaseAuth_login_succeeded)
+	Firebase.Auth.signup_succeeded.connect(_on_FirebaseAuth_login_succeeded)
+	Firebase.Auth.login_failed.connect(on_login_failed)
+	Firebase.Auth.signup_failed.connect(on_signup_failed)
 	
+	if Firebase.Auth.check_auth_file():
+		print("🟢 existe la sesión")
+		get_tree().change_scene_to_file("res://scenes/world.tscn")
+
 func show_error(text_error: String):
 	label_error.text = text_error
 	label_error.show()
 	
+# Aquí hacemos Register del formulario
+func _on_button_register_pressed() -> void:
+	Firebase.Auth.signup_with_email_and_password(input_email.text, input_password.text)
+	
+# Aquí hacemos Login del formulario
 func _on_button_login_pressed() -> void:
-	if line_edit_input.text.strip_edges() == "":
-		show_error("Escribe un nombre válido")
-		line_edit_input.grab_focus()
+	if input_email.text.strip_edges() == "":
+		show_error("Escribe un email válido")
+		input_email.grab_focus()
 		return
 		
-	print(line_edit_input.text)
+	Firebase.Auth.login_with_email_and_password(input_email.text, input_password.text)
 
+# Login exitoso
+func _on_FirebaseAuth_login_succeeded(auth):
+	print("🐸 auth: ", auth.localid)
+	
+	# Guardar los datos de autenticación para uso futuro
+	Firebase.Auth.save_auth(auth)
+	
+	# 1. Usuario que no existe
+	var collection: FirestoreCollection = Firebase.Firestore.collection(COLLECTION_NAME)
+	var document: FirestoreDocument = await collection.get_doc(auth.localid)
+	
+	if !document:
+		# Si no existe
+		var data: Dictionary = {
+			"localid" : auth.localid,
+			"email": auth.email,
+			"profit": Global.profit
+		}
+		collection.add(auth.localid, data)
+	
+	# 2. usuario que si existe
+	
+	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	
+func on_login_failed(error_code, message):
+	print("error code: " + str(error_code))
+	print("message: " + str(message))
+	show_error(message.to_lower())
+
+func on_signup_failed(error_code, message: String):
+	print("error code: " + str(error_code))
+	print("message: " + str(message))
+	show_error(message.to_lower())
+	
+# Aquí verificamos el email en tiempo real
 func _on_line_edit_input_text_changed(new_text: String) -> void:
 	if new_text.strip_edges() != "":
 		label_error.hide()

@@ -17,7 +17,8 @@ var max_peoples := 10
 func _ready() -> void:
 	# Opcion conectando la señal
 	#get_node("UI").get_node("ModalBuyStock").connect("game_start", game_start)
-	pass
+	var auth = Firebase.Auth.auth
+	print("🔴 auth: ", auth)
 	
 func game_start():
 	get_tree().paused = false

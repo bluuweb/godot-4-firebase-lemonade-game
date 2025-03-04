@@ -6,9 +6,16 @@ extends CanvasLayer
 @onready var ui_price: Control = $UIPrice
 @onready var ui_stock: Control = $UIStock
 
+@onready var label_email_user: Label = $LabelEmailUser
+
 #@onready var ModalBuyStock: Node2D = $Modal
+var auth
 
 func _ready() -> void:
+	auth = Firebase.Auth.auth
+	if auth:
+		label_email_user.text = auth.email
+	
 	modal_initial_config()
 	
 	Global.connect("sell", sell)
@@ -47,3 +54,8 @@ func _on_button_price_up_pressed() -> void:
 func _on_button_price_down_pressed() -> void:
 	Global.update_price(-1)
 	ui_price.update_text("Price: " + str(Global.price))
+
+# Cerrar sesión de usuario
+func _on_button_logout_pressed() -> void:
+	Firebase.Auth.logout()
+	get_tree().change_scene_to_file("res://scenes/login.tscn")
