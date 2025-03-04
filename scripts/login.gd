@@ -15,13 +15,16 @@ func _ready() -> void:
 	Firebase.Auth.signup_failed.connect(on_signup_failed)
 	
 	if Firebase.Auth.check_auth_file():
-		print("🟢 existe la sesión")
 		get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 func show_error(text_error: String):
 	label_error.text = text_error
 	label_error.show()
-	
+
+func toggle_state_button(state: bool):
+	$VBoxContainer/HBoxContainer/ButtonRegister.disabled = state
+	$VBoxContainer/HBoxContainer/ButtonLogin.disabled = state
+
 # Aquí hacemos Register del formulario
 func _on_button_register_pressed() -> void:
 	Firebase.Auth.signup_with_email_and_password(input_email.text, input_password.text)
@@ -32,13 +35,13 @@ func _on_button_login_pressed() -> void:
 		show_error("Escribe un email válido")
 		input_email.grab_focus()
 		return
-		
-	Firebase.Auth.login_with_email_and_password(input_email.text, input_password.text)
+	
+	toggle_state_button(true)
+	
+	await Firebase.Auth.login_with_email_and_password(input_email.text, input_password.text)
 
 # Login exitoso
 func _on_FirebaseAuth_login_succeeded(auth):
-	print("🐸 auth: ", auth.localid)
-	
 	# Guardar los datos de autenticación para uso futuro
 	Firebase.Auth.save_auth(auth)
 	
@@ -63,14 +66,17 @@ func _on_FirebaseAuth_login_succeeded(auth):
 		# 2. usuario que si existe
 		Global.initial_data_current_user(document)
 	
+	toggle_state_button(false)
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 	
 func on_login_failed(error_code, message):
+	toggle_state_button(false)
 	print("error code: " + str(error_code))
 	print("message: " + str(message))
 	show_error(message.to_lower())
 
 func on_signup_failed(error_code, message: String):
+	toggle_state_button(false)
 	print("error code: " + str(error_code))
 	print("message: " + str(message))
 	show_error(message.to_lower())

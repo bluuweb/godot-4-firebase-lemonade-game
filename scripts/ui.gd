@@ -8,19 +8,20 @@ extends CanvasLayer
 
 @onready var label_email_user: Label = $LabelEmailUser
 
-#@onready var ModalBuyStock: Node2D = $Modal
 var auth = null
 
 func _ready() -> void:
 	auth = Firebase.Auth.auth
-	print("👱 auth", auth)
 	if auth:
-		label_email_user.text = auth.localid
+		$ModalLoading.show()
+		label_email_user.text = auth.email
 		var collection = Firebase.Firestore.collection("users")
 		var document: FirestoreDocument = await collection.get_doc(auth.localid)
 		Global.initial_data_current_user(document)
+		$ModalLoading.hide()
 	
-	modal_initial_config()
+	#modal_initial_config()
+	$ModalBuyStock.show()
 	
 	Global.connect("sell", sell)
 	Global.connect("update_stock_signal", update_stock)

@@ -102,6 +102,7 @@ text = "Comenzar"
 layout_mode = 2
 
 [node name="ButtonBuyPublished" type="Button" parent="MarginContainer/GridContainer/VBoxContainer3"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Publicidad $20

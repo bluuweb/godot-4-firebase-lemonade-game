@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://vk2icjwx663w"]
+[gd_scene load_steps=7 format=3 uid="uid://vk2icjwx663w"]
 
 [ext_resource type="Script" uid="uid://87hso4iqnq03" path="res://scripts/ui.gd" id="1_8ocg0"]
 [ext_resource type="Texture2D" uid="uid://c0i8io35dkwx5" path="res://art/UI/Pointers/01.png" id="2_wq7m6"]
 [ext_resource type="PackedScene" uid="uid://dsjxlf0lylv7x" path="res://scenes/animated_gold.tscn" id="4_ncbrl"]
 [ext_resource type="PackedScene" uid="uid://c32s5826035bm" path="res://scenes/ui_info_text.tscn" id="5_qecjh"]
 [ext_resource type="PackedScene" uid="uid://b8jjku5hsubfu" path="res://scenes/modalBuyStock.tscn" id="6_hsenu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wm3ai"]
+bg_color = Color(0.705632, 0.587235, 0.243967, 1)
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
@@ -73,6 +76,7 @@ offset_bottom = 24.0
 scale = Vector2(0.75, 0.75)
 
 [node name="ModalBuyStock" parent="." instance=ExtResource("6_hsenu")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -95,6 +99,22 @@ offset_right = 66.0
 offset_bottom = 57.0
 scale = Vector2(0.5, 0.5)
 text = "Logout"
+
+[node name="ModalLoading" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wm3ai")
+
+[node name="LabelLoading" type="Label" parent="ModalLoading"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 16
+text = "Loading..."
+horizontal_alignment = 1
 
 [connection signal="pressed" from="UIPrice/VBoxContainer/ButtonPriceUp" to="." method="_on_button_price_up_pressed"]
 [connection signal="pressed" from="UIPrice/VBoxContainer/ButtonPriceDown" to="." method="_on_button_price_down_pressed"]

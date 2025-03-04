@@ -9,7 +9,7 @@ extends PanelContainer
 @onready var button_start: Button = %ButtonStart
 @onready var button_buy_employee: Button = $MarginContainer/GridContainer/VBoxContainer3/ButtonBuyEmployee
 
-# const UI = preload("res://scenes/ui.tscn")
+# const UI = preload("res://scenes/ui.tscn") 
 @onready var ui: CanvasLayer = $".."
 
 var pre_stock := 0
@@ -18,6 +18,10 @@ var cost := pre_stock * price_limonade_unit
 
 signal game_start
 
+func show_modal():
+	self.show()
+	initial_modal_config()
+	
 func button_update_text():
 	button_buy.text = str("Comprar: \n$" , cost)
 
@@ -50,6 +54,8 @@ func _on_modal_button_down_stock_pressed() -> void:
 
 # Cuando se presiona el botón de comprar stock
 func _on_button_buy_pressed() -> void:
+	
+	
 	await Global.update_stock(pre_stock)
 	await Global.update_profit(-cost)
 	
@@ -65,6 +71,9 @@ func _on_button_buy_pressed() -> void:
 	
 	if Global.stock > 0:
 		button_start.disabled = false
+		
+	# Firestore
+	await Global.firestore_put_stock_and_profit()
 
 # Cuando se presiona el botón de start
 func _on_button_start_pressed() -> void:

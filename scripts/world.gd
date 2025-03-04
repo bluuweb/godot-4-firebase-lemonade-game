@@ -17,8 +17,7 @@ var max_peoples := 10
 func _ready() -> void:
 	# Opcion conectando la señal
 	#get_node("UI").get_node("ModalBuyStock").connect("game_start", game_start)
-	var auth = Firebase.Auth.auth
-	print("🔴 auth: ", auth)
+	pass
 	
 func game_start():
 	get_tree().paused = false
@@ -67,7 +66,8 @@ func generate_person():
 func _on_timer_level_timeout() -> void:
 	if Global.time_game <= 0:
 		Global.time_game = 30
-		$UI/ModalBuyStock.show()
+		#$UI/ModalBuyStock.show()
+		$UI/ModalBuyStock.show_modal()
 		get_tree().paused = true
 		return
 	

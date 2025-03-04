@@ -26,7 +26,6 @@ func toggle_wait_time_ui(state: bool):
 		label_wait_time_limonade.hide()
 
 func stock_available():
-	print("person_wait_stock: ", is_person_wait_stock)
 	if is_person_wait_stock:
 		#print("ahora si tiene stock")
 		#await get_tree().process_frame # Da tiempo a que se ejecute correctamente

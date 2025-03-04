@@ -14,8 +14,9 @@ var employee_cost = 50
 var employee_max_number = 57
 
 # Firebase var
-var document: FirestoreDocument
-var localid: String
+var auth: FirebaseAuth
+var collection: FirestoreCollection
+var document: FirestoreDocument 
 
 var http_request_get = HTTPRequest.new()
 var http_request_put = HTTPRequest.new()
@@ -37,15 +38,6 @@ func _ready():
 	add_child(http_request_put)
 	http_request_put.request_completed.connect(self._http_request_put_completed)
 
-func firestore_update_item_document(item_name, item_value):
-	print("🐸 item_name", item_name)
-	var auth = Firebase.Auth.auth
-	var collection = Firebase.Firestore.collection("users")
-	var document: FirestoreDocument = await collection.get_doc(auth.localid)
-	
-	if collection:
-		document.add_or_update_field(item_name, item_value)
-		await collection.update(document)
 
 func initial_data_current_user(document: FirestoreDocument):
 	profit = document.profit
@@ -57,7 +49,17 @@ func initial_data_current_user(document: FirestoreDocument):
 	
 	update_price_signal.emit()
 	update_stock_signal.emit()
+
+func firestore_update_item_document(fields: Dictionary):
+	if !collection:
+		var auth = Firebase.Auth.auth
+		collection = Firebase.Firestore.collection("users")
+		document = await collection.get_doc(auth.localid)
+
+	for key in fields.keys():
+		document.add_or_update_field(key, fields[key])
 	
+	await collection.update(document)
 
 func employee_upgrade():
 	if employee_count >= employee_max_number:
@@ -68,36 +70,43 @@ func employee_upgrade():
 	employee_count += 1
 	employee_cost = employee_count * employee_cost_base
 	
-	await firestore_update_item_document("time_wait_for_limonade", time_wait_for_limonade)
-	await firestore_update_item_document("employee_count", employee_count)
-	await firestore_update_item_document("employee_cost", employee_cost)
+	await firestore_update_item_document({
+		"time_wait_for_limonade": time_wait_for_limonade,
+		"employee_count": employee_count,
+		"employee_cost":  employee_cost
+	})
 
 func sell_lemonade():
 	if(stock > 0):
 		stock -= 1
 		profit += price
-		
-		print("🧨 update_profit")
-		await firestore_update_item_document("profit", profit)
+
+		await firestore_update_item_document({
+			"profit": profit,
+			"stock": stock
+		})
 
 func update_price(value: int):
 	
 	price += value
 	update_price_signal.emit()
 	
-	await firestore_update_item_document("price", price)
+	await firestore_update_item_document({"price": price})
+
+func firestore_put_stock_and_profit():
+	firestore_update_item_document({
+		"stock": stock,
+		"profit": profit
+	})
 
 func update_stock(value: int):
-	print("update_stock global", value)
 	stock += value
 	update_stock_signal.emit()
-	
-	await firestore_update_item_document("stock", stock)
+	#await firestore_update_item_document("stock", stock)
 
 func update_profit(value: int):
-	print("🧨 update_profit")
 	profit += value
-	await firestore_update_item_document("profit", profit)
+	#await firestore_update_item_document("profit", profit)
 		
 func read_data():
 	http_request_get.request(url, headers, HTTPClient.METHOD_GET)
