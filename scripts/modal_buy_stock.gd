@@ -50,8 +50,9 @@ func _on_modal_button_down_stock_pressed() -> void:
 
 # Cuando se presiona el botón de comprar stock
 func _on_button_buy_pressed() -> void:
-	Global.update_stock(pre_stock)
-	Global.update_profit(-cost)
+	await Global.update_stock(pre_stock)
+	await Global.update_profit(-cost)
+	
 	%ButtonStart.grab_focus()
 	
 	# Aquí acceso al nodo parent (UI en este caso) 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://vk2icjwx663w"]
 
-[ext_resource type="Script" path="res://scripts/ui.gd" id="1_8ocg0"]
+[ext_resource type="Script" uid="uid://87hso4iqnq03" path="res://scripts/ui.gd" id="1_8ocg0"]
 [ext_resource type="Texture2D" uid="uid://c0i8io35dkwx5" path="res://art/UI/Pointers/01.png" id="2_wq7m6"]
 [ext_resource type="PackedScene" uid="uid://dsjxlf0lylv7x" path="res://scenes/animated_gold.tscn" id="4_ncbrl"]
 [ext_resource type="PackedScene" uid="uid://c32s5826035bm" path="res://scenes/ui_info_text.tscn" id="5_qecjh"]
@@ -30,10 +30,10 @@ text = "Stock: $ 100"
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -28.0
-offset_top = 13.0
-offset_right = -28.0
-offset_bottom = 13.0
+offset_left = -56.0
+offset_top = 16.0
+offset_right = -56.0
+offset_bottom = 16.0
 grow_horizontal = 2
 
 [node name="AnimatedGold" parent="UIProfit" instance=ExtResource("4_ncbrl")]

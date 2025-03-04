@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://dlfp7off5bva8"]
 
-[ext_resource type="Script" path="res://scripts/tree.gd" id="1_6i5lk"]
+[ext_resource type="Script" uid="uid://dwvod6ywh3581" path="res://scripts/tree.gd" id="1_6i5lk"]
 [ext_resource type="Texture2D" uid="uid://caywq7hdtq6o2" path="res://art/Resources/Trees/Tree.png" id="1_m0mbn"]
 [ext_resource type="Texture2D" uid="uid://dlobqt2csfyk0" path="res://art/Lemons/lemon.png" id="2_owkuy"]
 [ext_resource type="Texture2D" uid="uid://qgqxdfwhsf1" path="res://art/Factions/Goblins/Troops/Barrel/Red/Barrel_Red.png" id="4_i8lxr"]

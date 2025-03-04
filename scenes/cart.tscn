@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbv4uimyvx7k"]
 
-[ext_resource type="Script" path="res://scripts/cart.gd" id="1_f2j5h"]
+[ext_resource type="Script" uid="uid://buqn2jd4d772d" path="res://scripts/cart.gd" id="1_f2j5h"]
 [ext_resource type="Texture2D" uid="uid://ey7ki7lxbjcj" path="res://art/Factions/Knights/Buildings/House/House_Yellow.png" id="2_cfo24"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgra8"]

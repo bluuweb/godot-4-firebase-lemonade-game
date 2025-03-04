@@ -1,6 +1,6 @@
 [gd_scene load_steps=55 format=3 uid="uid://drmawhbl7ukue"]
 
-[ext_resource type="Script" path="res://scripts/person.gd" id="1_a4mro"]
+[ext_resource type="Script" uid="uid://dt44os2l57q6f" path="res://scripts/person.gd" id="1_a4mro"]
 [ext_resource type="Texture2D" uid="uid://hvsokgt4a2kt" path="res://art/Factions/Knights/Troops/Warrior/Blue/Warrior_Blue.png" id="2_nfrgb"]
 [ext_resource type="Texture2D" uid="uid://ccehlb6mg7jtm" path="res://art/Factions/Goblins/Troops/Torch/Blue/Torch_Blue.png" id="2_vyaey"]
 [ext_resource type="Texture2D" uid="uid://dsk6u5l5fbbhg" path="res://art/Factions/Knights/Troops/Archer/Red/Archer_Red.png" id="4_hiwgy"]

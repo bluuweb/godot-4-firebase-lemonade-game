@@ -9,12 +9,16 @@ extends CanvasLayer
 @onready var label_email_user: Label = $LabelEmailUser
 
 #@onready var ModalBuyStock: Node2D = $Modal
-var auth
+var auth = null
 
 func _ready() -> void:
 	auth = Firebase.Auth.auth
+	print("👱 auth", auth)
 	if auth:
-		label_email_user.text = auth.email
+		label_email_user.text = auth.localid
+		var collection = Firebase.Firestore.collection("users")
+		var document: FirestoreDocument = await collection.get_doc(auth.localid)
+		Global.initial_data_current_user(document)
 	
 	modal_initial_config()
 	
@@ -58,4 +62,5 @@ func _on_button_price_down_pressed() -> void:
 # Cerrar sesión de usuario
 func _on_button_logout_pressed() -> void:
 	Firebase.Auth.logout()
+	
 	get_tree().change_scene_to_file("res://scenes/login.tscn")

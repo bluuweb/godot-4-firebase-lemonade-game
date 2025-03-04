@@ -51,11 +51,17 @@ func _on_FirebaseAuth_login_succeeded(auth):
 		var data: Dictionary = {
 			"localid" : auth.localid,
 			"email": auth.email,
-			"profit": Global.profit
+			"profit": Global.profit,
+			"stock": Global.stock,
+			"price": Global.price,
+			"time_wait_for_limonade": Global.time_wait_for_limonade,
+			"employee_count": Global.employee_count,
+			"employee_cost": Global.employee_cost
 		}
-		collection.add(auth.localid, data)
-	
-	# 2. usuario que si existe
+		await collection.add(auth.localid, data)
+	else:
+		# 2. usuario que si existe
+		Global.initial_data_current_user(document)
 	
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 	
