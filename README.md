@@ -1,5 +1,9 @@
 # Juego de vender limonadas a los humildes guerros antes de su batalla épica.
 
+## Demo del juego
+
+- [https://beamish-belekoy-a9d951.netlify.app/](https://beamish-belekoy-a9d951.netlify.app/)
+
 ## Recursos
 
 - [https://pixelfrog-assets.itch.io/tiny-swords](https://pixelfrog-assets.itch.io/tiny-swords)
@@ -31,3 +35,7 @@ func finished_tween():
 	sprite_2d.queue_free()
 	print("terminó la animación")
 ```
+
+## Firebase
+
+- [https://github.com/GodotNuts/GodotFirebase/wiki](https://github.com/GodotNuts/GodotFirebase/wiki)
