@@ -63,5 +63,5 @@ func _on_button_price_down_pressed() -> void:
 # Cerrar sesión de usuario
 func _on_button_logout_pressed() -> void:
 	Firebase.Auth.logout()
-	
+	Global.reset_new_game()
 	get_tree().change_scene_to_file("res://scenes/login.tscn")

@@ -1,10 +1,16 @@
 extends Node
 
-var price := 2
-var profit := 50
-var stock := 0
-var time_game := 30
-var time_wait_for_limonade := 3.0
+var base_price := 2
+var base_profit := 49
+var base_stock := 0
+var base_time_game := 30
+var base_time_wait_for_limonade := 3.0
+
+var price := base_price
+var profit := base_profit
+var stock := base_stock
+var time_game := base_time_game
+var time_wait_for_limonade := base_time_wait_for_limonade
 
 # Upgrade games
 var employee_upgrade_percent = 0.1
@@ -38,6 +44,12 @@ func _ready():
 	add_child(http_request_put)
 	http_request_put.request_completed.connect(self._http_request_put_completed)
 
+func reset_new_game():
+	price = base_price
+	profit = base_profit
+	stock = base_stock
+	time_game = base_time_game
+	time_wait_for_limonade = base_time_wait_for_limonade
 
 func initial_data_current_user(document: FirestoreDocument):
 	profit = document.profit

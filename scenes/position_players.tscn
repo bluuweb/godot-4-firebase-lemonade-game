@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cked1uhjd3ooy"]
+
+[ext_resource type="Script" uid="uid://b7ic7n4f1hjcf" path="res://scripts/position_players.gd" id="1_2lx15"]
+
+[node name="PositionPlayers" type="PanelContainer"]
+script = ExtResource("1_2lx15")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

@@ -27,6 +27,8 @@ func toggle_state_button(state: bool):
 
 # Aquí hacemos Register del formulario
 func _on_button_register_pressed() -> void:
+	toggle_state_button(true)
+	
 	Firebase.Auth.signup_with_email_and_password(input_email.text, input_password.text)
 	
 # Aquí hacemos Login del formulario

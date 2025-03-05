@@ -19,6 +19,7 @@ var cost := pre_stock * price_limonade_unit
 signal game_start
 
 func show_modal():
+	$MarginContainer/GridContainer/PositionPlayers.fetch_users()
 	self.show()
 	initial_modal_config()
 	

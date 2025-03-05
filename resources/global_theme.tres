@@ -37,7 +37,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [resource]
-Button/font_sizes/font_size = 20
+Button/font_sizes/font_size = 15
 Button/fonts/font = SubResource("SystemFont_l148j")
 Button/styles/disabled = ExtResource("1_7s6dh")
 Button/styles/hover = ExtResource("1_d8mu4")
@@ -51,6 +51,7 @@ Label/colors/font_shadow_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 12
 Label/constants/shadow_offset_x = 0
 Label/constants/shadow_offset_y = 0
+Label/font_sizes/font_size = 10
 Label/fonts/font = SubResource("SystemFont_3g48k")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_msl20")
 PanelContainerStock/base_type = &"PanelContainer"

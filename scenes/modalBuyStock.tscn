@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8jjku5hsubfu"]
+[gd_scene load_steps=4 format=3 uid="uid://b8jjku5hsubfu"]
 
 [ext_resource type="Script" uid="uid://cpjw5c0nst6v8" path="res://scripts/modal_buy_stock.gd" id="1_8nddr"]
+[ext_resource type="PackedScene" uid="uid://cked1uhjd3ooy" path="res://scenes/position_players.tscn" id="2_23j4o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqw5h"]
 content_margin_left = 0.0
@@ -22,7 +23,7 @@ theme_override_constants/margin_bottom = 10
 [node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 20
-columns = 3
+columns = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
@@ -113,6 +114,9 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Empleados $50
 +10% velocidad"
+
+[node name="PositionPlayers" parent="MarginContainer/GridContainer" instance=ExtResource("2_23j4o")]
+layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonDownStock" to="." method="_on_modal_button_down_stock_pressed"]
 [connection signal="pressed" from="MarginContainer/GridContainer/VBoxContainer/PanelContainerStock/GridContainer/ModalButtonUpStock" to="." method="_on_modal_button_up_stock_pressed"]
